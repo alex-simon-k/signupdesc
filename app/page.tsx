@@ -17,17 +17,6 @@ export default function Home() {
           </div>
           <span className="text-xl font-semibold ml-2">Bidaaya</span>
         </div>
-        <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            Pricing
-          </a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            About
-          </a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            Contact
-          </a>
-        </div>
       </nav>
 
       {/* Hero Section */}
