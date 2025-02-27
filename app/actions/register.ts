@@ -29,13 +29,15 @@ async function testConnection() {
 
 export async function registerStudent(formData: z.infer<typeof formSchema>) {
   try {
+    console.log("Starting registration process")
+    const validatedData = formSchema.parse(formData)
+    console.log("Data validated:", validatedData)
+
     // Test connection first
     const isConnected = await testConnection()
     if (!isConnected) {
       throw new Error("Could not connect to database")
     }
-
-    const validatedData = formSchema.parse(formData)
 
     // Check if student already exists
     const studentsRef = collection(db, "registrations")
@@ -44,6 +46,7 @@ export async function registerStudent(formData: z.infer<typeof formSchema>) {
       where("schoolEmail", "==", validatedData.schoolEmail)
     )
     
+    console.log("Checking for existing registration")
     const querySnapshot = await getDocs(q)
     if (!querySnapshot.empty) {
       throw new Error("You have already registered with this school email")
@@ -59,10 +62,13 @@ export async function registerStudent(formData: z.infer<typeof formSchema>) {
       submittedAt: new Date()
     }
 
+    console.log("Saving registration data:", registrationData)
     await addDoc(collection(db, "registrations"), registrationData)
+    console.log("Registration saved successfully")
 
     return { success: true }
   } catch (error) {
+    console.error("Registration error:", error)
     if (error instanceof z.ZodError) {
       return { success: false, error: "Invalid form data" }
     }

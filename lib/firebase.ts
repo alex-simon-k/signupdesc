@@ -12,6 +12,8 @@ const firebaseConfig = {
   measurementId: "G-4J4DZ28KXR"
 };
 
+console.log("Initializing Firebase with config:", { ...firebaseConfig, apiKey: '[HIDDEN]' });
+
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -21,5 +23,7 @@ let analytics;
 if (typeof window !== 'undefined') {
   analytics = getAnalytics(app);
 }
+
+console.log("Firebase initialized successfully");
 
 export { db }; 

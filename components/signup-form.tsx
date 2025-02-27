@@ -49,7 +49,9 @@ export function SignupForm() {
     setIsSubmitting(true)
 
     try {
+      console.log("Submitting form with values:", values)
       const result = await registerStudent(values)
+      console.log("Registration result:", result)
 
       if (!result.success) {
         toast.error(result.error || "Something went wrong")
@@ -59,6 +61,7 @@ export function SignupForm() {
       setIsSuccess(true)
       toast.success("Registration successful!")
     } catch (error) {
+      console.error("Form submission error:", error)
       toast.error("Failed to register. Please try again.")
     } finally {
       setIsSubmitting(false)
